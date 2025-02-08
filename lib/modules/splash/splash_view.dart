@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:evently_flutter/core/routes/pages_route_name.dart';
 import 'package:flutter/material.dart';
 
+import '/core/services/local_storage_keys.dart';
+import '/core/services/local_storage_services.dart';
 import '../../core/constants/app_assets.dart';
 
 class SplashView extends StatefulWidget {
@@ -15,13 +17,22 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
-    Timer(
-      Duration(seconds: 2),
-      () {
-        Navigator.pushNamedAndRemoveUntil(
-            context, PagesRouteName.signIn, (route) => false);
-      },
-    );
+    Future.delayed(Duration(seconds: 2), () {
+      var isFirstTime =
+          LocalStorageServices.getBool(LocalStorageKeys.isFirstTimeRun) ?? true;
+      isFirstTime
+          ? Navigator.pushNamedAndRemoveUntil(
+              context, PagesRouteName.startView, (route) => false)
+          : Navigator.pushNamedAndRemoveUntil(
+              context, PagesRouteName.signIn, (route) => false);
+    });
+    // Timer(
+    //   Duration(seconds: 2),
+    //   () {
+    //     Navigator.pushNamedAndRemoveUntil(
+    //         context, PagesRouteName.onBoarding, (route) => false);
+    //   },
+    // );
     super.initState();
   }
 

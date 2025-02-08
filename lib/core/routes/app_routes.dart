@@ -1,3 +1,4 @@
+import 'package:evently_flutter/modules/onBoarding/start_view.dart';
 import 'package:flutter/material.dart';
 
 import '/core/routes/pages_route_name.dart';
@@ -13,6 +14,11 @@ abstract class AppRoutes {
       case PagesRouteName.initial:
         return MaterialPageRoute(
           builder: (context) => const SplashView(),
+          settings: settings,
+        );
+      case PagesRouteName.startView:
+        return MaterialPageRoute(
+          builder: (context) => StartView(),
           settings: settings,
         );
       case PagesRouteName.onBoarding:
